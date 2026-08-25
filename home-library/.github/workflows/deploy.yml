@@ -1,0 +1,41 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /opt/homelib
+
+          # 拉取最新代码
+          git pull
+
+          # 构建并启动
+          docker-compose down
+          docker-compose up -d --build
+
+          # 清理旧镜像
+          docker image prune -f
+
+          echo "✅ 部署完成"
+
+    - name: Health check
+      run: |
+        sleep 10
+        curl -f https://${{ secrets.DOMAIN }}/health || exit 1
+        echo "✅ 健康检查通过"
