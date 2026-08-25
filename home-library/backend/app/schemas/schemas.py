@@ -86,12 +86,19 @@ class BookResponse(BookBase):
     updated_at: datetime
 
 
+class TagResponse(BaseModel):
+    """标签响应"""
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    name: str
+    created_at: datetime
+
 class BookDetailResponse(BookResponse):
     """图书详情（包含位置和分类）"""
     work: Optional[WorkResponse] = None
     edition: Optional[EditionResponse] = None
     category: Optional[CategoryResponse] = None
-    tags: List[TagResponse] = Field(default_factory=list)
+    tags: List["TagResponse"] = Field(default_factory=list)
     shelf_positions: List[ShelfPositionResponse] = Field(default_factory=list)
 
 
@@ -315,12 +322,7 @@ class TagCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=50)
 
 
-class TagResponse(BaseModel):
-    """标签响应"""
-    model_config = ConfigDict(from_attributes=True)
-    id: int
-    name: str
-    created_at: datetime
+
 
 
 class BookTagsUpdate(BaseModel):
