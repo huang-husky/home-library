@@ -318,7 +318,7 @@ export default function ShelfScan() {
                     className={`absolute border-2 cursor-pointer transition-all ${
                       selectedBox?.item.id === item.id
                         ? 'border-blue-500 bg-blue-500/20'
-                        : item.status === 'rejected'
+                        : item.status === 'failed'
                         ? 'border-red-400 bg-red-400/10'
                         : item.status === 'confirmed'
                         ? 'border-green-400 bg-green-400/10'
@@ -483,7 +483,7 @@ export default function ShelfScan() {
                       <button
                         onClick={() => updateItemMutation.mutate({
                           itemId: selectedBox.item.id,
-                          data: { status: 'rejected' },
+                          data: { status: 'failed' },
                         })}
                         className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded text-sm"
                       >
@@ -513,7 +513,7 @@ export default function ShelfScan() {
                     selectedBox?.item.id === item.id
                       ? 'border-blue-500 bg-blue-50'
                       : 'border-gray-200 hover:border-gray-300'
-                  } ${item.status === 'rejected' ? 'opacity-50' : ''}`}
+                  } ${item.status === 'failed' ? 'opacity-50' : ''}`}
                 >
                   <div className="flex items-center justify-between">
                     <span className={`font-medium ${item.detected_text.startsWith('[') ? 'text-gray-400' : ''}`}>
@@ -524,7 +524,7 @@ export default function ShelfScan() {
                         {Math.round(item.confidence * 100)}%
                       </span>
                       {item.status === 'confirmed' && <Check className="w-4 h-4 text-green-600" />}
-                      {item.status === 'rejected' && <X className="w-4 h-4 text-red-600" />}
+                      {item.status === 'failed' && <X className="w-4 h-4 text-red-600" />}
                     </div>
                   </div>
                 </div>
