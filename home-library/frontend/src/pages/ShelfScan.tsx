@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Upload, Image as ImageIcon, Check, X, Trash2, Plus, AlertCircle, BarChart3 } from 'lucide-react';
 import { scansApi, bookshelvesApi, ScanItem, BoundingBox } from '../api';
@@ -120,7 +120,7 @@ export default function ShelfScan() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'confirmed': return 'text-green-600';
-      case 'rejected': return 'text-red-600';
+      case 'failed': return 'text-red-600';
       default: return 'text-yellow-600';
     }
   };

@@ -2,11 +2,11 @@ import { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import {
-  Check, X, RefreshCw, SkipForward, BookOpen, AlertCircle,
+  Check, RefreshCw, SkipForward, BookOpen, AlertCircle,
   ChevronLeft, ChevronRight, Library, BarChart3, Play,
   ThumbsUp, RotateCcw
 } from 'lucide-react';
-import { scansApi, aiImportApi, ImportItem, ImportCandidate } from '../api';
+import { scansApi, aiImportApi } from '../api';
 
 export default function RecognitionReview() {
   const queryClient = useQueryClient();
@@ -26,7 +26,7 @@ export default function RecognitionReview() {
   });
 
   // 获取导入项
-  const { data: importData, isLoading } = useQuery({
+  const { data: importData } = useQuery({
     queryKey: ['import-items', scanId],
     queryFn: () => scanId ? aiImportApi.getItems(scanId).then(r => r.data) : Promise.resolve(null),
     enabled: !!scanId,
