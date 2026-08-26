@@ -13,7 +13,7 @@ httpx==0.26.0
 
 # Image processing
 Pillow==10.2.0
-opencv-python-headless==4.9.0.0
+opencv-python-headless==4.9.0.80
 
 # AI / OCR (MVP阶段按需安装)
 # paddlepaddle==2.6.0
