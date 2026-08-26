@@ -477,6 +477,12 @@ export interface Category {
   created_at: string;
 }
 
+export interface TagResponse {
+  id: number;
+  name: string;
+  created_at: string;
+}
+
 export interface CategoryTree extends Category {
   children: CategoryTree[];
   book_count: number;

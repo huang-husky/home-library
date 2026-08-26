@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import {
   Check, X, RefreshCw, SkipForward, BookOpen, AlertCircle,
   ChevronLeft, ChevronRight, Library, BarChart3, Play,
-  ThumbsUp, ThumbsDown, RotateCcw
+  ThumbsUp, RotateCcw
 } from 'lucide-react';
 import { scansApi, aiImportApi, ImportItem, ImportCandidate } from '../api';
 

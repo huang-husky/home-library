@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { bookshelvesApi, shelfPositionApi } from '@/api';
-import { MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MapPin, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function BookshelfVisualizationPage() {

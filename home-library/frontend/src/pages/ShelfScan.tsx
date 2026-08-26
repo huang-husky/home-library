@@ -27,7 +27,6 @@ export default function ShelfScan() {
   const [drawStart, setDrawStart] = useState<{ x: number; y: number } | null>(null);
   const [drawCurrent, setDrawCurrent] = useState<{ x: number; y: number } | null>(null);
   const [newBoxText, setNewBoxText] = useState('');
-  const [imageSize, setImageSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
 
   // 获取书柜列表
   const { data: bookshelves = [] } = useQuery({
@@ -103,12 +102,6 @@ export default function ShelfScan() {
     const reader = new FileReader();
     reader.onload = (event) => {
       setUploadedImage(event.target?.result as string);
-      // 获取图片尺寸
-      const img = new Image();
-      img.onload = () => {
-        setImageSize({ width: img.width, height: img.height });
-      };
-      img.src = event.target?.result as string;
     };
     reader.readAsDataURL(file);
 
@@ -193,9 +186,10 @@ export default function ShelfScan() {
     high: scanItems.filter(i => i.confidence >= 0.8).length,
     medium: scanItems.filter(i => i.confidence >= 0.5 && i.confidence < 0.8).length,
     low: scanItems.filter(i => i.confidence < 0.5).length,
-    pending: scanItems.filter(i => i.status === 'pending').length,
+    detected: scanItems.filter(i => i.status === 'detected').length,
     confirmed: scanItems.filter(i => i.status === 'confirmed').length,
-    rejected: scanItems.filter(i => i.status === 'rejected').length,
+    failed: scanItems.filter(i => i.status === 'failed').length,
+    skipped: scanItems.filter(i => i.status === 'skipped').length,
   };
 
   return (
@@ -441,7 +435,7 @@ export default function ShelfScan() {
                 <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
                   <span>置信度: {Math.round(selectedBox.item.confidence * 100)}%</span>
                   <span className={getStatusColor(selectedBox.item.status)}>
-                    状态: {selectedBox.item.status === 'pending' ? '待确认' : selectedBox.item.status === 'confirmed' ? '已确认' : '已拒绝'}
+                    状态: {selectedBox.item.status === 'detected' ? '待确认' : selectedBox.item.status === 'confirmed' ? '已确认' : selectedBox.item.status === 'failed' ? '失败' : selectedBox.item.status === 'skipped' ? '已跳过' : '待处理'}
                   </span>
                 </div>
 

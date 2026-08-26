@@ -1,7 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { booksApi, shelfPositionApi } from '@/api';
-import { ArrowLeft, Trash2, Edit, MapPin, Layers } from 'lucide-react';
+import { ArrowLeft, Trash2, Edit, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
 export function BookDetailPage() {
